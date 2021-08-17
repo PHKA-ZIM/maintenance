@@ -20,7 +20,7 @@ server {
     root /var/www/maintenance/html/public;
 
     location /images {
-        try_files $uri =503;
+        try_files =503;
     }
 
     location / {
