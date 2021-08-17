@@ -18,6 +18,11 @@ server {
 	add_header Content-Security-Policy "frame-ancestors 'self'";
 
     root /var/www/maintenance/html/public;
-    index index.html index.htm;
+
+    location / {
+        return 503;
+    }
+
+    error_page 503 = /index.html
 }
 
