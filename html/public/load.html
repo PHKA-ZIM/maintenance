@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>503 Service Unavailable</title>
+		<link href="https://cdnjs.cloudflare.com" rel="dns-prefetch" />
+		<noscript>
+			<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet" />
+			<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
+			<style>
+				#default {
+					height: 100%;
+					width: 100%;
+				}
+				#default > div {
+					align-items: center;
+					display: flex;
+					flex-direction: column;
+					font-family: 'Roboto', sans-serif;
+					height: 100%;
+					justify-content: center;
+					width: 100%;
+				}
+				h1 {
+					text-align: center;
+				}
+			</style>
+		</noscript>
+		<style>
+			html, body {
+				height: 100%;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<noscript>
+			<div id="default">
+				<div>
+					<h1>Das gewünschte System ist nicht erreichbar</h1>
+				</div>
+			</div>
+		</noscript>
+		<script>
+			(function () {
+				// Polyfill for IE
+				if (window.NodeList && !NodeList.prototype.forEach) {
+					NodeList.prototype.forEach = Array.prototype.forEach;
+				}
+
+				(function load (attempt) {
+					if (attempt === undefined) {
+						attempt = 0;
+					}
+					attempt++;
+					var xhr = new XMLHttpRequest();
+					xhr.open('GET', 'index.html');
+					xhr.send(null);
+
+					xhr.onreadystatechange = function () {
+						if (xhr.readyState === 4 && xhr.status === 200) {
+							replace(xhr.responseText);
+						} else if (xhr.readyState === 4 && xhr.status !== 200 && attempt < 3) {
+							setTimeout(load, 500, attempt);
+						} else if (xhr.readyState === 4 && xhr.status !== 200) {
+							unhide();
+						}
+
+						function replace (content) {
+							document.open('text/html');
+							document.write(content);
+							document.close();
+						}
+
+						function unhide () {
+							var elements = document.querySelectorAll('head noscript');
+							elements.forEach(function (el) {
+								replace(el);
+							});
+							setTimeout(function () {
+								var elements = document.querySelectorAll('body noscript');
+								elements.forEach(function (el) {
+									replace(el);
+								});
+							}, 500);
+
+							function replace (el) {
+								var fragment = document.createRange().createContextualFragment(el.innerText);
+								fragment.childNodes.forEach(function (childNode) {
+									el.parentNode.insertBefore(childNode.cloneNode(true), el);
+								})
+								el.parentNode.removeChild(el);
+							}
+						}
+					}
+				}) ();
+			}) ();
+		</script>
+	</body>
+</html>
