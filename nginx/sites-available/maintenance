@@ -22,7 +22,8 @@ server {
     location / {
         return 503;
     }
-
-    error_page 503 /index.html;
+    
+    location = /images {}
     location = /index.html {}
+    error_page 503 /index.html;
 }
