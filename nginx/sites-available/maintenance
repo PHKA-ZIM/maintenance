@@ -24,4 +24,5 @@ server {
     }
 
     error_page 503 /index.html;
+    location = /index.html {}
 }
