@@ -19,11 +19,11 @@ server {
 
     root /var/www/maintenance/html/public;
 
+    location /images {}
     location / {
         return 503;
     }
     
-    location /images {}
     location = /503.html {}
     error_page 503 /503.html;
 }
