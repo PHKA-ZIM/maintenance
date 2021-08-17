@@ -23,6 +23,5 @@ server {
         return 503;
     }
 
-    error_page 503 = /index.html
+    error_page 503 = /index.html;
 }
-
