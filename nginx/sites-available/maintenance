@@ -19,14 +19,8 @@ server {
 
     root /var/www/maintenance/html/public;
 
-    location /images {
-        try_files =503;
-    }
-
     location / {
-        return 503;
+        try_files $uri =503;
     }
-    
-    location = /503.html {}
     error_page 503 /503.html;
 }
