@@ -1,0 +1,17 @@
+# Handle Options request
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteCond %{REQUEST_METHOD} OPTIONS
+	RewriteRule ^(.*)$ $1 [L,R=204]
+</IfModule>
+
+# Set CORS Headers
+<IfModule mod_headers.c>
+	Header add X-Content-Type-Options "nosniff"
+	Header add X-XSS-Protection "1; mode=block"
+	Header always add Access-Control-Max-Age 1728000
+	# Header add Access-Control-Allow-Origin "*.ph-karlsruhe.de"
+	Header add Access-Control-Allow-Origin "*"
+	Header add Access-Control-Allow-Headers "*"
+	Header add Access-Control-Allow-Methods "GET, OPTIONS"
+</IfModule>
